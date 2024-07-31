@@ -49,5 +49,8 @@ The script processes each row of the input Excel file and performs the following
 4. Push to the branch using `git push origin feature-branch`.
 5. Create a new Pull Request.
 
+## Known Bugs
+- The Discord link breaks after moving it into the new Excel (*.xlsx*) file.
+
 ## License
 This project is licensed under the MIT License.
