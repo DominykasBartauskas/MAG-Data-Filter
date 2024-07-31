@@ -6,6 +6,7 @@ Some small code to enhance the points tallying from .xlsx documents.
 - [Usage](#usage)
 - [Explanation](#explanation)
 - [Contributing](#contributing)
+- [Known Bugs](#known-bugs)
 - [License](#license)
 
 ## Installation
