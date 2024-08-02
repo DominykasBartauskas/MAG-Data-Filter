@@ -29,9 +29,9 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-1. Copy and paste the Excel (*.xlsx*) file (renamed to `data.xlsx`) with the data into the root directory of the project.
-2. Run the script using the run button or this command `python app.py` in the terminal.
-3. The script will generate an output Excel (*.xlsx*) file `processed_data.xlsx` with the following sheets:
+1. Copy and paste the Excel (*.xlsx*) file (renamed to either `data_defense.xlsx` or `data_delivery.xlsx` depending on what you want to count) with the data into the root directory of the project.
+2. Run the script of your choice using the run button (with the specific script open) or one of these commands `python app_defense.py` or `python app_delivery.py` in the terminal.
+3. The script will generate an output Excel (*.xlsx*) file `processed_defense_data.xlsx` or `processed_delivery_data.xlsx` (depending on which script you ran) with the following sheets:
 - `Usernames Count`: Tally of usernames with their points. These can be directly copied and pasted into Discord. A `@` symbol before the username is required to create the mention in Discord.
 - `Lost Rows`: Rows that didn't meet the criteria for counting. These have to be manually checked.
 
