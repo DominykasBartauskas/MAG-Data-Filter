@@ -3,7 +3,7 @@ import re
 from collections import Counter
 
 # Load the Excel file
-df = pd.read_excel('data.xlsx')
+df = pd.read_excel('data_defense.xlsx')
 
 # Print column names to verify the correct column names
 print("Column names in the DataFrame:", df.columns)
@@ -59,7 +59,7 @@ usernames_df = pd.DataFrame(username_counter.items(), columns=['Username', 'Coun
 lost_df = pd.DataFrame(lost_rows)
 
 # Save the results to a new Excel file
-with pd.ExcelWriter('processed_data.xlsx') as writer:
+with pd.ExcelWriter('processed_defense_data.xlsx') as writer:
     usernames_df.to_excel(writer, sheet_name='Usernames Count', index=False)
     lost_df.to_excel(writer, sheet_name='Lost Rows', index=False)
 
