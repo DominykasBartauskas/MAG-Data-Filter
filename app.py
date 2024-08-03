@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, send_file
 import pandas as pd
 from werkzeug.utils import secure_filename
 import os
@@ -28,20 +28,24 @@ def index():
             script_choice = request.form['script']
             
             if script_choice == 'delivery':
-                process_delivery(file_path)
+                processed_file_path = process_delivery(file_path)
             elif script_choice == 'defense':
-                process_defense(file_path)
+                processed_file_path = process_defense(file_path)
             
-            return redirect(url_for('index', processed=True))
+            return send_file(processed_file_path, as_attachment=True)
     return render_template('index.html')
 
 def process_delivery(file_path):
     from scripts.delivery import process_file
+    output_path = file_path.replace('.xlsx', '_processed_delivery.xlsx')
     process_file(file_path)
+    return output_path
 
 def process_defense(file_path):
     from scripts.defense import process_file
+    output_path = file_path.replace('.xlsx', '_processed_defense.xlsx')
     process_file(file_path)
+    return output_path
 
 if __name__ == '__main__':
     app.run(debug=True)

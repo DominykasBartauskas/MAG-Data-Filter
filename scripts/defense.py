@@ -32,3 +32,4 @@ def process_file(file_path):
         lost_df.to_excel(writer, sheet_name='Lost Rows', index=False)
 
     print("Defense processing completed.")
+    return output_path
