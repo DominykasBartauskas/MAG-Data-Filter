@@ -2,51 +2,33 @@ import pandas as pd
 import re
 from collections import Counter
 
-# Load the Excel file
-df = pd.read_excel('data_delivery.xlsx')
+def process_file(file_path):
+    df = pd.read_excel(file_path)
+    print("Column names in the DataFrame:", df.columns)
 
-# Print column names to verify the correct column names
-print("Column names in the DataFrame:", df.columns)
+    username_counter = Counter()
+    lost_rows = []
 
-# Initialize a counter for usernames
-username_counter = Counter()
-
-# List to store the data that doesn't fit the filter
-lost_rows = []
-
-# Process each row
-for index, row in df.iterrows():
-    # Check if the row has a username in Column B and data in Column D
-    if isinstance(row['Username'], str) and isinstance(row['Content'], str):
-        # Extract username
-        username = row['Username']
-        
-        # Ensure the 'Data' column is a string before processing
-        if isinstance(row['Content'], str):
-            data_text = row['Content']
-            # Check if the data text contains the phrase 'delive' (case insensitive)
-            if re.search(r'delive', data_text, re.IGNORECASE):
-                # Increment the count for the username
-                username_counter[username] += 1
+    for index, row in df.iterrows():
+        if isinstance(row['Username'], str) and isinstance(row['Content'], str):
+            username = row['Username']
+            if isinstance(row['Content'], str):
+                data_text = row['Content']
+                if re.search(r'delive', data_text, re.IGNORECASE):
+                    username_counter[username] += 1
+                else:
+                    lost_rows.append(row)
             else:
-                # Copy the row to lost_rows
                 lost_rows.append(row)
         else:
-            # Copy the row to lost_rows
             lost_rows.append(row)
-    else:
-        # Copy the row to lost_rows
-        lost_rows.append(row)
 
-# Create a DataFrame from the username counter
-usernames_df = pd.DataFrame(username_counter.items(), columns=['Username', 'Count'])
+    usernames_df = pd.DataFrame(username_counter.items(), columns=['Username', 'Count'])
+    lost_df = pd.DataFrame(lost_rows)
 
-# Create a DataFrame for lost rows
-lost_df = pd.DataFrame(lost_rows)
+    output_path = file_path.replace('.xlsx', '_processed_delivery.xlsx')
+    with pd.ExcelWriter(output_path) as writer:
+        usernames_df.to_excel(writer, sheet_name='Usernames Count', index=False)
+        lost_df.to_excel(writer, sheet_name='Lost Rows', index=False)
 
-# Save the results to a new Excel file
-with pd.ExcelWriter('processed_delivery_data.xlsx') as writer:
-    usernames_df.to_excel(writer, sheet_name='Usernames Count', index=False)
-    lost_df.to_excel(writer, sheet_name='Lost Rows', index=False)
-
-print("Completed.")
+    print("Delivery processing completed.")

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>File Upload and Processing</title>
+  </head>
+  <body>
+    <h1>Upload a File and Choose a Script to Run</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" name="file"><br><br>
+      <label for="script">Choose a script:</label>
+      <select name="script">
+        <option value="delivery">Delivery</option>
+        <option value="defense">Defense</option>
+      </select><br><br>
+      <input type="submit" value="Upload and Process">
+    </form>
+    {% if request.args.get('processed') %}
+      <p>File processed successfully!</p>
+    {% endif %}
+  </body>
+</html>
