@@ -3,20 +3,39 @@
   <head>
     <meta charset="utf-8">
     <title>File Upload and Processing</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   </head>
-  <body>
-    <h1>Upload a File and Choose a Script to Run</h1>
-    <form action="/" method="post" enctype="multipart/form-data">
-      <input type="file" name="file"><br><br>
-      <label for="script">Choose a script:</label>
-      <select name="script">
-        <option value="delivery">Delivery</option>
-        <option value="defense">Defense</option>
-      </select><br><br>
-      <input type="submit" value="Upload and Process">
-    </form>
-    {% if request.args.get('processed') %}
-      <p>File processed successfully!</p>
-    {% endif %}
+  <body class="bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+        File Processor
+      </a>
+    </nav>
+    <div class="container mt-5">
+      <h1 class="text-center">Upload a File and Choose a Script to Run</h1>
+      <form action="/" method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="form-group">
+          <label for="file">Choose file</label>
+          <input type="file" class="form-control-file" name="file" id="file">
+        </div>
+        <div class="form-group text-center">
+          <label for="script">Choose a script</label><br>
+          <button type="submit" name="script" value="delivery" class="btn btn-primary btn-lg m-2">
+            <i class="fas fa-truck"></i> Delivery
+          </button>
+          <button type="submit" name="script" value="defense" class="btn btn-secondary btn-lg m-2">
+            <i class="fas fa-shield-alt"></i> Defense
+          </button>
+        </div>
+      </form>
+      {% if request.args.get('processed') %}
+        <div class="alert alert-success mt-4" role="alert">
+          File processed successfully!
+        </div>
+      {% endif %}
+    </div>
   </body>
 </html>
