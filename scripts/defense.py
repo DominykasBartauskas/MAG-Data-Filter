@@ -6,7 +6,7 @@ def process_file(file_path):
     df = pd.read_excel(file_path)
     print("Column names in the DataFrame:", df.columns)
 
-    kills_pattern = re.compile(r'Kills:\s*(\d+)')
+    kills_pattern = re.compile(r'Kill(?:s)?:\s*(\d+)')
     username_counter = Counter()
     lost_rows = []
 
