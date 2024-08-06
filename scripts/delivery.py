@@ -14,7 +14,7 @@ def process_file(file_path):
             username = row['Username']
             if isinstance(row['Content'], str):
                 data_text = row['Content']
-                if re.search(r'delive', data_text, re.IGNORECASE):
+                if re.search(r'delivered', data_text, re.IGNORECASE):
                     username_counter[username] += 1
                 else:
                     lost_rows.append(row)
