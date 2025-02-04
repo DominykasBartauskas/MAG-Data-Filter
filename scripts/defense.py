@@ -6,8 +6,8 @@ def process_file(file_path):
     df = pd.read_excel(file_path)
     print("Column names in the DataFrame:", df.columns)
 
-    kills_pattern = re.compile(r'Kill(?:s)?:\s*(\d+)')
-    enemies_pattern = re.compile(r'Enem(?:y|ies):\s*(\d+)')
+    kills_pattern = re.compile(r'[\W_]*[Kk]ill[s]?\s*:?\s*(\d+)', re.IGNORECASE)
+    enemies_pattern = re.compile(r'[\W_]*[Ee]n+em(?:y|ies)?\s*:?\s*(\d+)', re.IGNORECASE)
     username_counter = Counter()
     lost_rows = []
     total_entries = 0
